@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tabpfn-chess"
+version = "0.1.0a1"
+description = "TabPFN chess engine and local web demo"
+readme = "README.md"
+license = "EUPL-1.2"
+license-files = ["LICENSE", "NOTICE.md", "licenses/*"]
+requires-python = ">=3.11"
+authors = [{name = "Jules Kreuer"}]
+dependencies = [
+  "chess==1.11.2", "numpy>=2,<3", "pandas>=2.2,<4", "pyarrow>=14",
+  "scipy>=1.14,<2", "tabpfn==9.0.0", "torch>=2.6,<3",
+  "tabpfn-client==0.6.0",
+]
+
+[project.scripts]
+tabpfn-chess = "tabpfn_chess.server:main"
+
+[tool.setuptools.packages.find]
+include = ["tabpfn_chess*"]
+
+[tool.setuptools.package-data]
+tabpfn_chess = ["data/*.parquet", "web/*.html", "web/*.js", "web/*.css", "web/*.json"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+exclude = ["benchmarks/study-source", ".venv", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

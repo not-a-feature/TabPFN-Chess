@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabPFN for Chess: In-Context Value Estimation &amp; Minimax Search</title>
+  <meta name="description" content="Academic demonstration and empirical benchmark: TabPFN foundation models as in-context chess position evaluators via 787-dimensional spatial-to-tabular transformations.">
+  <link rel="stylesheet" href="style.css?v=0.1.0a1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation & Python engine Status Bar -->
+  <header class="swiss-header">
+    <div class="brand">
+      <span class="brand-mark">♟</span>
+      <div class="brand-text">
+        <h1>TABPFN<span class="brand-divider">/</span>CHESS</h1>
+      </div>
+    </div>
+
+    <!-- Persistent Python engine Key Status Banner -->
+    <div class="key-status-banner" id="keyBanner">
+      <div class="key-status-indicator">
+        <span class="status-dot offline" id="statusDot"></span>
+        <span class="status-text" id="statusText">Python engine · local API</span>
+      </div>
+      <button class="btn-swiss btn-key-action" id="btnKeyAction">
+        <span id="btnKeyActionText">Engine settings</span>
+      </button>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <a href="vector_animation.html" target="_blank" class="btn-swiss btn-ghost" id="btnAnimation" title="Open 1080p Vectorization Animation (Video Mode)" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+        <span aria-hidden="true">&#9655;</span>
+        <span>Animation Mode</span>
+      </a>
+      <button class="btn-swiss btn-accent" id="btnPlay" title="Jump to the active playing board">
+        <span aria-hidden="true">&#9654;</span>
+        <span>Play</span>
+      </button>
+      <button class="btn-swiss btn-ghost" id="btnSettings" title="API & Engine Settings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Settings</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification Bar -->
+  <div class="system-alert" id="systemAlert" style="display: none;"></div>
+
+  <!-- Academic Article Container -->
+  <div class="academic-wrapper">
+
+    <!-- Paper Title & Metadata Header -->
+    <header class="paper-header">
+      <h1 class="paper-title">
+        TabPFN for Chess: In-Context Value Estimation &amp; Minimax Search
+      </h1>
+
+      <div class="paper-authors">
+        <span class="author-name">Jules Kreuer</span>
+      </div>
+
+      <p class="paper-summary">
+        Evaluating TabPFN tabular foundation models as in-context chess position evaluators via 787-dimensional spatial-to-tabular representations and minimax lookahead search.
+      </p>
+    </header>
+
+    <!-- Section 1: Spatial-to-Tabular Transformation (Interactive Feature Explorer) -->
+    <section class="academic-section">
+      <div class="academic-section-heading">
+        <div class="section-num-title">
+          <span class="sec-num">01 /</span>
+          <h2 class="sec-title">Spatial-to-Tabular Feature Vectorization</h2>
+        </div>
+      </div>
+
+      <!-- Container for ChessboardTabularVisualizer -->
+      <div id="transformVizContainer"></div>
+    </section>
+
+    <!-- Section 01.B: Domain Heuristics & Additional Feature Computation -->
+    <section class="academic-section" id="featureComputationSection">
+      <div class="academic-section-heading">
+        <div class="heading-row-split">
+          <div class="section-num-title">
+            <span class="sec-num">01.B /</span>
+            <h2 class="sec-title">Domain Heuristics &amp; Additional Feature Computation</h2>
+          </div>
+          <button type="button" class="btn-swiss btn-return-board" id="btnReturnToBoard" title="Jump directly down to the interactive chessboard">
+            &darr; Return to Playing Board
+          </button>
+        </div>
+      </div>
+
+      <!-- Feature Mode Overview -->
+      <div class="feature-mode-banner" id="featureModeBanner">
+        <div class="mode-status-col">
+          <div class="mode-title-row">
+            <span class="mode-badge active" id="featureModeBadge">EXTENDED FEATURES ACTIVE (787-D)</span>
+          </div>
+          <p class="mode-desc" id="featureModeDesc">
+            TabPFN evaluates all 768 piece-square channels, 5 board flags, and 14 engineered channels (material, center control, passed pawns, mobility).
+          </p>
+        </div>
+      </div>
+
+      <!-- 4-Up Feature Calculation Breakdown Grid -->
+      <div class="feature-breakdown-grid" id="featureBreakdownGrid">
+
+        <!-- Card 1: Material Differential & Total Balance -->
+        <div class="feature-calc-card" id="cardMaterialFeat">
+          <div class="calc-card-head">
+            <span class="calc-feat-tag">FEATURES 773, 783, 784</span>
+            <h4>Material Differential &amp; Total Tally</h4>
+          </div>
+          <p class="calc-desc">
+            Sum piece values for each color: P = 1, N = 3, B = 3, R = 5, Q = 9, K = 0. Material balance is White minus Black; total material is their sum. The piece count includes both kings.
+          </p>
+          <div class="calc-formula-box">
+            <code>&Delta;M = &sum;<sub>w</sub> V(p) &minus; &sum;<sub>b</sub> V(p) &emsp;|&emsp; M<sub>tot</sub> = &sum;<sub>all</sub> V(p)</code>
+          </div>
+          <div class="calc-live-telemetry">
+            <div class="telemetry-chip">
+              <span class="chip-label">MATERIAL DELTA (&Delta;M)</span>
+              <span class="chip-val mono" id="featCardMatDelta">+0.00</span>
+            </div>
+            <div class="telemetry-chip">
+              <span class="chip-label">TOTAL MATERIAL</span>
+              <span class="chip-val mono" id="featCardTotalMat">78.0</span>
+            </div>
+            <div class="telemetry-chip">
+              <span class="chip-label">TOTAL PIECES</span>
+              <span class="chip-val mono" id="featCardTotalPieces">32 / 32</span>
+            </div>
+          </div>
+          <div class="calc-visual-bar-wrap">
+            <div class="calc-bar-label-row">
+              <span>White (<span id="featBarWhiteMat">39.0</span> pts)</span>
+              <span>Black (<span id="featBarBlackMat">39.0</span> pts)</span>
+            </div>
+            <div class="calc-material-bar">
+              <div class="calc-mat-fill-white" id="featMatBarWhite" style="width: 50%;"></div>
+              <div class="calc-mat-fill-black" id="featMatBarBlack" style="width: 50%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Central Space Control & Attack Raycasting -->
+        <div class="feature-calc-card" id="cardCenterFeat">
+          <div class="calc-card-head">
+            <span class="calc-feat-tag">FEATURES 775, 776</span>
+            <h4>Central Space Control (d4, e4, d5, e5)</h4>
+          </div>
+          <p class="calc-desc">
+            Count how many of the four central squares each color attacks: d4, e4, d5 and e5. Each count ranges from 0 to 4. These are geometric attacks, so pinned pieces still contribute.
+          </p>
+          <div class="calc-formula-box">
+            <code>Center(color) = &sum;<sub>s &isin; {d4,e4,d5,e5}</sub> &Iopf;(is_attacked(s, color))</code>
+          </div>
+          <div class="calc-center-viz-row">
+            <div class="center-2x2-board" title="Real-time central square attack state">
+              <div class="center-cell sq-light" id="csq-d5" data-sq="d5"><span class="csq-name">d5</span><div class="csq-piece"></div><span class="csq-dots"></span></div>
+              <div class="center-cell sq-dark" id="csq-e5" data-sq="e5"><span class="csq-name">e5</span><div class="csq-piece"></div><span class="csq-dots"></span></div>
+              <div class="center-cell sq-dark" id="csq-d4" data-sq="d4"><span class="csq-name">d4</span><div class="csq-piece"></div><span class="csq-dots"></span></div>
+              <div class="center-cell sq-light" id="csq-e4" data-sq="e4"><span class="csq-name">e4</span><div class="csq-piece"></div><span class="csq-dots"></span></div>
+            </div>
+            <div class="calc-live-telemetry vertical">
+              <div class="telemetry-chip">
+                <span class="chip-label">WHITE CONTROL</span>
+                <span class="chip-val mono" id="featCardCenterWhite">0 / 4 squares</span>
+              </div>
+              <div class="telemetry-chip">
+                <span class="chip-label">BLACK CONTROL</span>
+                <span class="chip-val mono" id="featCardCenterBlack">0 / 4 squares</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Pawn Topology & Passed Pawn Detection -->
+        <div class="feature-calc-card" id="cardPassedFeat">
+          <div class="calc-card-head">
+            <span class="calc-feat-tag">FEATURES 785, 786</span>
+            <h4>Passed Pawn Detection &amp; Promotion Path</h4>
+          </div>
+          <p class="calc-desc">
+            A pawn is passed when no opposing pawn is ahead of it on its file or either adjacent file. Forward is toward rank 8 for White and rank 1 for Black; let d = +1 for White and −1 for Black.
+          </p>
+          <div class="calc-formula-box">
+            <code>Passed(p) ⇔ ∀ q ∈ P<sub>opp</sub>: |file(q) − file(p)| ≤ 1 ⇒ d · (rank(q) − rank(p)) ≤ 0</code>
+          </div>
+          <div class="calc-live-telemetry">
+            <div class="telemetry-chip">
+              <span class="chip-label">WHITE PASSED PAWNS</span>
+              <span class="chip-val mono" id="featCardWhitePassed">0</span>
+            </div>
+            <div class="telemetry-chip">
+              <span class="chip-label">BLACK PASSED PAWNS</span>
+              <span class="chip-val mono" id="featCardBlackPassed">0</span>
+            </div>
+            <div class="telemetry-chip">
+              <span class="chip-label">EN PASSANT ACTIVE (782)</span>
+              <span class="chip-val mono" id="featCardEnPassant">None</span>
+            </div>
+          </div>
+          <div class="passed-status-callout" id="passedStatusCallout">
+            <span class="callout-dot"></span>
+            <span class="callout-text" id="passedStatusText">Opening position: all pawn structures contested across adjacent files.</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Dynamic Mobility, Bishop Pair & King Safety -->
+        <div class="feature-calc-card" id="cardMobilityFeat">
+          <div class="calc-card-head">
+            <span class="calc-feat-tag">FEATURES 774, 777, 778, 779</span>
+            <h4>Mobility, Bishop Pairs &amp; King Safety</h4>
+          </div>
+          <p class="calc-desc">
+            Tracks available legal branch count |M|, check status, and the classical bishop pair bonus (B ≥ 2). Check status and bishop-pair flags are binary inputs; mobility is the number of legal moves.
+          </p>
+          <div class="calc-formula-box">
+            <code>Mobility = |M<sub>legal</sub>| &emsp;|&emsp; BishopPair = &Iopf;(count(B) &ge; 2)</code>
+          </div>
+          <div class="calc-live-telemetry">
+            <div class="telemetry-chip">
+              <span class="chip-label">LEGAL MOBILITY (777)</span>
+              <span class="chip-val mono" id="featCardMobility">20 moves</span>
+            </div>
+            <div class="telemetry-chip">
+              <span class="chip-label">IN CHECK (774)</span>
+              <span class="chip-val mono" id="featCardInCheck">No</span>
+            </div>
+            <div class="telemetry-chip">
+              <span class="chip-label">WHITE BISHOP PAIR</span>
+              <span class="chip-val mono" id="featCardWhiteBishopPair">Active (&ge;2)</span>
+            </div>
+            <div class="telemetry-chip">
+              <span class="chip-label">BLACK BISHOP PAIR</span>
+              <span class="chip-val mono" id="featCardBlackBishopPair">Active (&ge;2)</span>
+            </div>
+          </div>
+          <div class="mobility-meter-wrap">
+            <div class="calc-bar-label-row">
+              <span>Mobility Gauge</span>
+              <span id="featMobilityPct">20 / 60</span>
+            </div>
+            <div class="calc-single-bar">
+              <div class="calc-bar-fill" id="featMobilityFill" style="width: 33%;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="academic-section">
+      <div class="academic-section-heading">
+        <div class="section-num-title"><span class="sec-num">02 /</span><h2 class="sec-title">Validation &amp; Playing Strength</h2></div>
+      </div>
+      <p>The earlier Elo numbers were an unvalidated conversion of centipawn loss, not ratings measured through games. They have been withdrawn. Historical runs also used different Python and browser search rules, and the Python model labelled 3.5 selected the default checkpoint.</p>
+      <p>The current engine evaluates every legal candidate and immediate reply. Tactical assistance resolves captures and recaptures, then uses TabPFN for a bounded positional preference. Checkmates and draws receive exact scores. Disabling tactical assistance provides a model-only comparison.</p>
+      <p>The context scaling study uses nested samples of 100, 1,000 and 10,000 positions with identical model and search settings. Each context plays 400 games: 80 each against Stockfish 19 at UCI_Elo 1320, 1400, 1500, 1600 and 1800, using its documented 120 s + 1 s time control. The same 200 opening positions are played from both colors in every context. TabPFN uses fixed two-ply assisted search without a clock limit; its eight estimator KV caches are reused across all games and saved for restarts.</p>
+      <div class="scaling-table-wrap">
+        <table class="scaling-table">
+          <caption id="scalingCaption">Context scaling · preliminary match results</caption>
+          <thead><tr><th scope="col">Context</th><th scope="col">Games</th><th scope="col">W / D / L</th>
+            <th scope="col">Elo estimate</th><th scope="col">Nominal 95% bounds</th><th scope="col">Uncached move</th><th scope="col">Cached move</th></tr></thead>
+          <tbody id="scalingResultsBody"></tbody>
+        </table>
+      </div>
+      <details><summary>Results by Stockfish Elo setting</summary>
+        <div class="scaling-table-wrap"><table class="scaling-table">
+          <thead><tr><th scope="col">Context</th><th scope="col">Stockfish Elo</th><th scope="col">Games</th><th scope="col">W / D / L</th></tr></thead>
+          <tbody id="opponentResultsBody"></tbody>
+        </table></div>
+      </details>
+      <p>These are performance estimates relative to the configured opponents, not FIDE or online ratings. The combined estimate accounts for each opponent's Elo and uses completed opening pairs. Nominal 95% bounds resample whole White/Black pairs within each opponent setting; degenerate outcomes use conservative bounds instead. Early estimates remain uncertain. All wins or all losses have no finite point estimate. Games reaching the 600-ply cap are unfinished, withhold the paired point estimate and widen its bounds. Latency figures are earlier single-position pilots on a shared H100, excluding fit/cache preparation; they are not speed guarantees. The earlier eight-game pilot is excluded from this study. The tested context prefixes have no overlap with the opening roots or their immediate children. Deeper positions and original source games have not been checked for overlap. The 100,000-context run has been dropped.</p>
+      <p id="scalingUpdated"></p>
+      <p><a href="scaling_results.json">Download the recorded results and settings</a> · <a href="https://official-stockfish.github.io/docs/stockfish-wiki/UCI-Protocol-and-Stockfish-Commands.html#uci_elo">Stockfish rating calibration</a></p>
+    </section>
+
+    <!-- Section 3: Interactive Model Demonstration & Python engine Engine Arena -->
+    <section class="academic-section">
+      <div class="academic-section-heading">
+        <div class="section-num-title">
+          <span class="sec-num">03 /</span>
+          <h2 class="sec-title">Play</h2>
+        </div>
+      </div>
+
+      <!-- Main Swiss Chess Arena Grid -->
+      <main class="swiss-arena">
+
+        <!-- Column 1: Board Assembly -->
+        <section class="arena-board-col">
+          
+          <!-- Top Player Bar -->
+          <div class="swiss-player-strip top-strip">
+            <div class="strip-left">
+              <span class="player-icon">■</span>
+              <span class="strip-name" id="topPlayerName">TABPFN ENGINE</span>
+              <span class="strip-badge" id="topPlayerBadge">BLACK</span>
+            </div>
+            <div class="strip-right">
+              <div class="captured-box" id="topCaptured"></div>
+              <span class="mat-tally" id="topMaterialDiff"></span>
+            </div>
+          </div>
+
+          <!-- Board Assembly (Eval Bar + 8x8 Board) -->
+          <div class="board-assembly">
+            <!-- Dynamic Vertical Eval Bar -->
+            <div class="eval-column" title="Normalized search score (not a calibrated win probability)">
+              <div class="eval-num top-num" id="evalTopText">50%</div>
+              <div class="eval-track">
+                <div class="eval-fill" id="evalFill" style="height: 50%;"></div>
+              </div>
+              <div class="eval-num bottom-num" id="evalBottomText">50%</div>
+            </div>
+
+            <!-- 8x8 Board Container with Drag & Drop -->
+            <div class="board-viewport">
+              <div class="chessboard-grid" id="chessboard"></div>
+            </div>
+          </div>
+
+          <!-- Bottom Player Bar -->
+          <div class="swiss-player-strip bottom-strip">
+            <div class="strip-left">
+              <span class="player-icon white-icon">□</span>
+              <span class="strip-name" id="bottomPlayerName">PLAYER</span>
+              <span class="strip-badge" id="bottomPlayerBadge">WHITE</span>
+            </div>
+            <div class="strip-right">
+              <div class="captured-box" id="bottomCaptured"></div>
+              <span class="mat-tally" id="bottomMaterialDiff"></span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-grid">
+            <button class="btn-swiss btn-accent" id="btnEngineMove">RUN ENGINE MOVE</button>
+            <button class="btn-swiss" id="btnUndo">UNDO</button>
+            <button class="btn-swiss" id="btnFlip">FLIP</button>
+            <button class="btn-swiss" id="btnNewGame">NEW GAME</button>
+            <button class="btn-swiss" id="btnAutoPlay">AUTO PLAY</button>
+          </div>
+
+          <!-- Play-As Selector & Domain Heuristics Button -->
+          <div class="meta-strip">
+            <div class="meta-group">
+              <label for="playerColorSelect">PLAY AS</label>
+              <select class="swiss-select" id="playerColorSelect">
+                <option value="w">White (Play First)</option>
+                <option value="b">Black (Engine First)</option>
+                <option value="both">Both (Analysis Mode)</option>
+              </select>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Column 2: Live Telemetry & Candidate Rankings -->
+        <section class="arena-data-col">
+
+          <!-- Tabs & Inline Feature Mode Switcher -->
+          <div class="arena-tabs-header">
+            <nav class="swiss-tabs">
+              <button class="swiss-tab-btn active" data-tab="analysis">ANALYSIS &amp; CANDIDATES</button>
+              <button class="swiss-tab-btn" data-tab="history">MOVE HISTORY (PGN)</button>
+            </nav>
+
+            <div class="arena-tabs-right">
+
+              <div class="feature-mode-inline-toggle" title="Feature Representation Mode for TabPFN">
+                <span class="mode-inline-label">MODE:</span>
+                <div class="mode-pill-segmented">
+                  <button type="button" class="btn-seg-pill active" id="btnModeAssisted" data-mode="extended">Feature Assisted</button>
+                  <button type="button" class="btn-seg-pill" id="btnModeBoardOnly" data-mode="raw">Board Only</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 1: Analysis & Candidates -->
+          <div class="tab-pane active" id="tab-analysis">
+            <div class="metric-grid">
+              <div class="metric-cell">
+                <span class="metric-label">NORMALIZED SCORE</span>
+                <span class="metric-value mono" id="evalProbVal">50.0%</span>
+                <span class="metric-sub">WHITE PERSPECTIVE</span>
+              </div>
+              <div class="metric-cell">
+                <span class="metric-label">EQUIVALENT CP</span>
+                <span class="metric-value mono" id="evalCpVal">+0.00</span>
+                <span class="metric-sub">CENTIPAWN DELTA</span>
+              </div>
+              <div class="metric-cell">
+                <span class="metric-label">ACTIVE ENGINE</span>
+                <span class="metric-value" id="engineNameVal">TABPFN-3.5</span>
+                <span class="metric-sub" id="engineFeatSub">787 TABULAR FEATURES</span>
+              </div>
+            </div>
+
+            <!-- Top Candidate Moves Table -->
+            <div class="table-container">
+              <div class="table-title-row">
+                <span class="table-title">TOP CANDIDATE MOVES</span>
+                <span class="table-hint">CLICK ANY MOVE TO PLAY</span>
+              </div>
+
+              <table class="swiss-table">
+                <thead>
+                  <tr>
+                    <th style="width: 32px;">#</th>
+                    <th style="width: 70px;">MOVE</th>
+                    <th style="width: 140px;">WHITE SCORE</th>
+                    <th style="width: 100px;">SAFETY</th>
+                    <th>BEST LINE (PV)</th>
+                  </tr>
+                </thead>
+                <tbody id="candidatesTbody">
+                  <tr>
+                    <td colspan="5" class="empty-state">Evaluating positions...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab 2: PGN Move History -->
+          <div class="tab-pane" id="tab-history">
+            <div class="history-scroll-box">
+              <table class="swiss-history-table">
+                <tbody id="historyTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+    </section>
+
+  </div>
+
+  <!-- End-of-game result -->
+  <div class="swiss-modal-overlay" id="gameOverModal" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle">
+    <div class="swiss-modal-window game-over-window">
+      <span class="modal-tag">GAME OVER</span>
+      <div class="game-over-mark" id="gameOverMark" aria-hidden="true">&#9812;</div>
+      <h2 id="gameOverTitle">You Won</h2>
+      <p id="gameOverDetail"></p>
+      <div class="game-over-actions">
+        <button class="btn-swiss btn-ghost" id="btnReviewGame" type="button">Review Final Position</button>
+        <button class="btn-swiss btn-accent" id="btnPlayAgain" type="button">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Python engine Settings Modal -->
+  <div class="swiss-modal-overlay" id="settingsModal">
+    <div class="swiss-modal-window">
+      <div class="modal-head">
+        <div class="modal-head-title">
+          <span class="modal-tag">ENGINE SETTINGS</span>
+          <h2>Python TabPFN Engine</h2>
+        </div>
+        <button class="modal-close-btn" id="modalClose">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        
+        <p>The browser uses the local Python engine. Model fitting and move selection run on the server.</p>
+        <!-- Test Connection -->
+        <div class="input-block">
+          <button class="btn-swiss btn-full" id="btnTestConnection" type="button">TEST API CONNECTION</button>
+          <div class="connection-pill" id="connectionFeedback"></div>
+        </div>
+
+        <!-- Model Selection -->
+        <div class="input-block">
+          <label for="modelSelect">FOUNDATION MODEL</label>
+          <select class="swiss-select" id="modelSelect">
+            <option value="3.5">TabPFN-3.5 Regressor (Recommended)</option>
+            <option value="3.0">TabPFN-3.0 Regressor</option>
+          </select>
+        </div>
+
+        <!-- Search Depth / Horizon -->
+        <div class="input-block">
+          <label for="searchHorizonSelect">SEARCH HORIZON (LOOKAHEAD DEPTH)</label>
+          <select class="swiss-select" id="searchHorizonSelect">
+            <option value="1">1-Ply (Greedy Evaluation)</option>
+            <option value="2" selected>2-Ply Minimax (All Immediate Replies)</option>
+            <option value="4">4-Ply Selective Minimax (Slower)</option>
+          </select>
+        </div>
+
+        <!-- Feature Vector Mode -->
+        <div class="input-block">
+          <label for="featureModeModalSelect">FEATURE VECTOR REPRESENTATION</label>
+          <select class="swiss-select" id="featureModeModalSelect">
+            <option value="extended" selected>787-dim Extended (Spatial + Domain Heuristics)</option>
+            <option value="raw">773 Active Features (Pieces + Board Flags)</option>
+          </select>
+          <span class="field-hint">
+            Ablation toggle: Raw Position clamps features 773&ndash;786 to 0.0, retaining 768 occupancy channels and 5 board flags. Tactical assistance is controlled separately.
+          </span>
+        </div>
+
+        <!-- In-Context Sample Count -->
+        <div class="input-block">
+          <label for="contextSizeSelect">IN-CONTEXT SAMPLES (N)</label>
+          <select class="swiss-select" id="contextSizeSelect">
+            <option value="100">100 Reference Positions</option>
+            <option value="1000" selected>1,000 Reference Positions (Default)</option>
+            <option value="10000">10,000 Reference Positions</option>
+          </select>
+        </div>
+
+        <!-- Tactical Safety Toggle -->
+        <div class="toggle-row">
+          <div>
+            <span class="toggle-title">TACTICAL SEARCH ASSISTANCE</span>
+            <span class="toggle-desc">Legal capture search and bounded model preference</span>
+          </div>
+          <input type="checkbox" id="tacticalSafetyToggle" checked class="swiss-checkbox">
+        </div>
+
+
+
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn-swiss btn-ghost" id="btnCancelSettings" type="button">CANCEL</button>
+        <button class="btn-swiss btn-accent" id="btnSaveSettings" type="button">SAVE &amp; APPLY</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer"><span>Original code: EUPL-1.2.</span> <a href="credits.html">Licenses and attribution</a></footer>
+
+  <!-- Toast Container -->
+  <div class="toast-hub" id="toastContainer"></div>
+
+  <!-- Application Scripts (Loaded in strict order) -->
+  <script src="chess.js?v=0.1.0a1"></script>
+  <script src="pieces.js?v=0.1.0a1"></script>
+  <script src="vectorizer.js?v=0.1.0a1"></script>
+  <script src="engine_client.js?v=0.1.0a1"></script>
+  <script src="transform_viz.js?v=0.1.0a1"></script>
+  <script src="app.js?v=0.1.0a1"></script>
+  <script src="scaling_results.js?v=0.1.0a1"></script>
+  <script src="scaling_table.js?v=0.1.0a1"></script>
+</body>
+</html>
+

@@ -1,0 +1,497 @@
+{
+  "updated_utc": "2026-09-20T13:04:26.823450+00:00",
+  "study": "400-game Elo ladder",
+  "planned_games_per_context": 400,
+  "anchors": [
+    1320,
+    1400,
+    1500,
+    1600,
+    1800
+  ],
+  "opening_suite": {
+    "source": "https://github.com/lichess-org/chess-openings",
+    "license": "CC0-1.0",
+    "commit": "4b8622759e7ae6f93f011cc6c83a3823401ab45e",
+    "source_sha256": {
+      "a": "41722fa3d44f294357326fe2ca1b956d9e56490b30efcfa68db61114c9df7e10",
+      "b": "310f0997d5a26ac6c9abfabac028e47e78f24356a6ba322cfffbf8f5a3f88d25",
+      "c": "b2e64f32e42e6418b327d03a55af65f3a18e762f7cbc0efffc7e9d1ed3aa7343",
+      "d": "58cad40b886bd499717eabcce281d4bfcf00eeadbdc00552f42042cf4aac50d2",
+      "e": "f1f8494f488f660e284f23527d5acfbeccdbbc3acc76e74f05d125f39d2f8a74"
+    },
+    "seed": 20260918,
+    "screening": {
+      "opponent": {
+        "name": "Stockfish 19",
+        "author": "the Stockfish developers (see AUTHORS file)"
+      },
+      "depth": 14,
+      "max_abs_cp": 80,
+      "plies": 8
+    },
+    "anchors": [
+      1320,
+      1400,
+      1500,
+      1600,
+      1800
+    ]
+  },
+  "complete": true,
+  "rows": [
+    {
+      "context": 100,
+      "match": {
+        "config": {
+          "context": 100,
+          "anchors": [
+            1320,
+            1400,
+            1500,
+            1600,
+            1800
+          ],
+          "games_per_anchor": 80,
+          "games_total": 400,
+          "pairs": 200,
+          "max_plies": 600,
+          "opponent_clock": 120,
+          "opponent_increment": 1,
+          "tabpfn_time_control": "fixed search, untimed",
+          "model": "3.5",
+          "estimators": 8,
+          "seed": 42,
+          "horizon_plies": 2,
+          "tactical_safety": true,
+          "fit_mode": "fit_with_cache",
+          "keep_cache_on_device": false,
+          "gpu_memory_fraction": 0.18,
+          "max_batched_test_rows": 128,
+          "versions": {
+            "tabpfn": "9.0.0",
+            "torch": "2.6.0+cu124",
+            "numpy": "2.4.6",
+            "scipy": "1.17.1",
+            "chess": "1.11.2"
+          },
+          "dataset_sha256": "d4fd12bcef2d967a318e7b1376115896831c9c853d195c261f5d737b3a727cbb",
+          "openings_sha256": "923378d38a31b611625378ec62445293f44969ddcebe063ab28f5c82e3899ad3",
+          "stockfish_sha256": "0f83d24cc46d2c66c60f16001af5444873bc112b7d028594513426894c12da19",
+          "source_sha256": {
+            "engine.py": "7299bbbcd0026350c46eadd5de185536156be58a979c43072f07c33bce6779d9",
+            "preprocess.py": "b07fdfdd59ecbda86e3ac57e69c4c0ea301c1c6f57a241d84319cdce67773292",
+            "model_registry.py": "d26b3a36ba14624d7d58e30682e213d0f78ecf5ac16c61a71dcf2a771295c21e",
+            "benchmark_ladder.py": "252f6650830c77099f0f392f5937b3ae448256a0e9a2920dae637145f1232b73",
+            "benchmark_cache.py": "32e27e08010b6448017b647c3d3b8adead391f73e3cab6b1c66324299482c76d",
+            "match_statistics.py": "0897695c26dc67a97161b51c8da834d811e208e650d79708a626979fa6e89bd5"
+          }
+        },
+        "opponent": {
+          "name": "Stockfish 19",
+          "author": "the Stockfish developers (see AUTHORS file)"
+        },
+        "cache": {
+          "loaded_from_disk": true,
+          "cache_key": "848f3f136e7e7683891284b6e4cebacfcb6fd730d7c260d926d73a18e28ebc52",
+          "fit_or_load_and_save_seconds": 6.590842345263809,
+          "cache_bytes_on_disk": 469834930,
+          "executor": "InferenceEngineExplicitKVCache",
+          "estimator_caches": 8,
+          "keep_cache_on_device": false,
+          "identity": {
+            "tabpfn": "9.0.0",
+            "torch": "2.6.0+cu124",
+            "numpy": "2.4.6",
+            "scikit-learn": "1.9.1",
+            "context_shape": [
+              100,
+              787
+            ],
+            "dtype": "float32",
+            "X_sha256": "f9f0adfa7a36e236a61a4aa997f7dcf2b5c4f74d83e3ec197ea5ca3d012dd9f8",
+            "y_sha256": "8da42a32b8c157fda697a522ffd2375231e9e2a7d8186a9acd20a053a6e92b6c",
+            "model_registry_sha256": "d26b3a36ba14624d7d58e30682e213d0f78ecf5ac16c61a71dcf2a771295c21e"
+          },
+          "fit_calls": 1,
+          "predict_calls": 13307
+        },
+        "results": {
+          "games": 400,
+          "censored": 0,
+          "wins": 59,
+          "draws": 9,
+          "losses": 332,
+          "score": 0.15875,
+          "rating_games": 400,
+          "opening_pairs": 200,
+          "elo": 1185.4266042170752,
+          "elo_low": 1137.62844877087,
+          "elo_high": 1228.2390285349359,
+          "interval_method": "95% opening-pair bootstrap, stratified by opponent Elo",
+          "bootstrap_samples": 2000,
+          "mean_move_seconds": 3.8019213880980742,
+          "by_opponent": [
+            {
+              "anchor": 1320,
+              "games": 80,
+              "wins": 24,
+              "draws": 5,
+              "losses": 51,
+              "censored": 0
+            },
+            {
+              "anchor": 1400,
+              "games": 80,
+              "wins": 20,
+              "draws": 2,
+              "losses": 58,
+              "censored": 0
+            },
+            {
+              "anchor": 1500,
+              "games": 80,
+              "wins": 10,
+              "draws": 1,
+              "losses": 69,
+              "censored": 0
+            },
+            {
+              "anchor": 1600,
+              "games": 80,
+              "wins": 5,
+              "draws": 1,
+              "losses": 74,
+              "censored": 0
+            },
+            {
+              "anchor": 1800,
+              "games": 80,
+              "wins": 0,
+              "draws": 0,
+              "losses": 80,
+              "censored": 0
+            }
+          ]
+        },
+        "summary_source_sha256": "047dd6b61d620643b7677a1d5f0cecc837d26377ace8aebf365f32b18ab971ca"
+      },
+      "latency_pilot": {
+        "context": 100,
+        "fit_seconds": 11.575099137990037,
+        "move_seconds": 2.3394612270058133,
+        "move": "Bd3",
+        "peak_gpu_gb": 2.260266496
+      },
+      "cached_latency_pilot": {
+        "context": 100,
+        "fit_seconds": 5.256911146003404,
+        "move_seconds": 4.086438851998537,
+        "move": "Bd3",
+        "peak_gpu_gb": 2.185637376
+      }
+    },
+    {
+      "context": 1000,
+      "match": {
+        "config": {
+          "context": 1000,
+          "anchors": [
+            1320,
+            1400,
+            1500,
+            1600,
+            1800
+          ],
+          "games_per_anchor": 80,
+          "games_total": 400,
+          "pairs": 200,
+          "max_plies": 600,
+          "opponent_clock": 120,
+          "opponent_increment": 1,
+          "tabpfn_time_control": "fixed search, untimed",
+          "model": "3.5",
+          "estimators": 8,
+          "seed": 42,
+          "horizon_plies": 2,
+          "tactical_safety": true,
+          "fit_mode": "fit_with_cache",
+          "keep_cache_on_device": false,
+          "gpu_memory_fraction": 0.18,
+          "max_batched_test_rows": 128,
+          "versions": {
+            "tabpfn": "9.0.0",
+            "torch": "2.6.0+cu124",
+            "numpy": "2.4.6",
+            "scipy": "1.17.1",
+            "chess": "1.11.2"
+          },
+          "dataset_sha256": "d4fd12bcef2d967a318e7b1376115896831c9c853d195c261f5d737b3a727cbb",
+          "openings_sha256": "923378d38a31b611625378ec62445293f44969ddcebe063ab28f5c82e3899ad3",
+          "stockfish_sha256": "0f83d24cc46d2c66c60f16001af5444873bc112b7d028594513426894c12da19",
+          "source_sha256": {
+            "engine.py": "7299bbbcd0026350c46eadd5de185536156be58a979c43072f07c33bce6779d9",
+            "preprocess.py": "b07fdfdd59ecbda86e3ac57e69c4c0ea301c1c6f57a241d84319cdce67773292",
+            "model_registry.py": "d26b3a36ba14624d7d58e30682e213d0f78ecf5ac16c61a71dcf2a771295c21e",
+            "benchmark_ladder.py": "252f6650830c77099f0f392f5937b3ae448256a0e9a2920dae637145f1232b73",
+            "benchmark_cache.py": "32e27e08010b6448017b647c3d3b8adead391f73e3cab6b1c66324299482c76d",
+            "match_statistics.py": "0897695c26dc67a97161b51c8da834d811e208e650d79708a626979fa6e89bd5"
+          }
+        },
+        "opponent": {
+          "name": "Stockfish 19",
+          "author": "the Stockfish developers (see AUTHORS file)"
+        },
+        "cache": {
+          "loaded_from_disk": true,
+          "cache_key": "370fa250e656d26f1248e9d6ae1e70c77e282541fc2188f7e47995b10fbfdafd",
+          "fit_or_load_and_save_seconds": 10.031850283965468,
+          "cache_bytes_on_disk": 882911384,
+          "executor": "InferenceEngineExplicitKVCache",
+          "estimator_caches": 8,
+          "keep_cache_on_device": false,
+          "identity": {
+            "tabpfn": "9.0.0",
+            "torch": "2.6.0+cu124",
+            "numpy": "2.4.6",
+            "scikit-learn": "1.9.1",
+            "context_shape": [
+              1000,
+              787
+            ],
+            "dtype": "float32",
+            "X_sha256": "45bd1545edeed9e7fd4954acb04d760c89d71bd67b7a2d30ba9abadc2883c3af",
+            "y_sha256": "c02af1ed1685fa03907d4855b4f5b805a56203d144fb9678c361d0ad5de25fcf",
+            "model_registry_sha256": "d26b3a36ba14624d7d58e30682e213d0f78ecf5ac16c61a71dcf2a771295c21e"
+          },
+          "fit_calls": 1,
+          "predict_calls": 15450
+        },
+        "results": {
+          "games": 400,
+          "censored": 0,
+          "wins": 77,
+          "draws": 4,
+          "losses": 319,
+          "score": 0.1975,
+          "rating_games": 400,
+          "opening_pairs": 200,
+          "elo": 1235.87940641718,
+          "elo_low": 1188.9323890556375,
+          "elo_high": 1278.7121209554307,
+          "interval_method": "95% opening-pair bootstrap, stratified by opponent Elo",
+          "bootstrap_samples": 2000,
+          "mean_move_seconds": 4.570483955483165,
+          "by_opponent": [
+            {
+              "anchor": 1320,
+              "games": 80,
+              "wins": 33,
+              "draws": 1,
+              "losses": 46,
+              "censored": 0
+            },
+            {
+              "anchor": 1400,
+              "games": 80,
+              "wins": 19,
+              "draws": 2,
+              "losses": 59,
+              "censored": 0
+            },
+            {
+              "anchor": 1500,
+              "games": 80,
+              "wins": 13,
+              "draws": 0,
+              "losses": 67,
+              "censored": 0
+            },
+            {
+              "anchor": 1600,
+              "games": 80,
+              "wins": 9,
+              "draws": 0,
+              "losses": 71,
+              "censored": 0
+            },
+            {
+              "anchor": 1800,
+              "games": 80,
+              "wins": 3,
+              "draws": 1,
+              "losses": 76,
+              "censored": 0
+            }
+          ]
+        },
+        "summary_source_sha256": "047dd6b61d620643b7677a1d5f0cecc837d26377ace8aebf365f32b18ab971ca"
+      },
+      "latency_pilot": {
+        "context": 1000,
+        "fit_seconds": 5.860647412002436,
+        "move_seconds": 5.3480734199984,
+        "move": "h3",
+        "peak_gpu_gb": 5.547813376
+      },
+      "cached_latency_pilot": {
+        "context": 1000,
+        "fit_seconds": 8.9610969619971,
+        "move_seconds": 5.294184694997966,
+        "move": "h3",
+        "peak_gpu_gb": 3.538865664
+      }
+    },
+    {
+      "context": 10000,
+      "match": {
+        "config": {
+          "context": 10000,
+          "anchors": [
+            1320,
+            1400,
+            1500,
+            1600,
+            1800
+          ],
+          "games_per_anchor": 80,
+          "games_total": 400,
+          "pairs": 200,
+          "max_plies": 600,
+          "opponent_clock": 120,
+          "opponent_increment": 1,
+          "tabpfn_time_control": "fixed search, untimed",
+          "model": "3.5",
+          "estimators": 8,
+          "seed": 42,
+          "horizon_plies": 2,
+          "tactical_safety": true,
+          "fit_mode": "fit_with_cache",
+          "keep_cache_on_device": false,
+          "gpu_memory_fraction": 0.18,
+          "max_batched_test_rows": 128,
+          "versions": {
+            "tabpfn": "9.0.0",
+            "torch": "2.6.0+cu124",
+            "numpy": "2.4.6",
+            "scipy": "1.17.1",
+            "chess": "1.11.2"
+          },
+          "dataset_sha256": "d4fd12bcef2d967a318e7b1376115896831c9c853d195c261f5d737b3a727cbb",
+          "openings_sha256": "923378d38a31b611625378ec62445293f44969ddcebe063ab28f5c82e3899ad3",
+          "stockfish_sha256": "0f83d24cc46d2c66c60f16001af5444873bc112b7d028594513426894c12da19",
+          "source_sha256": {
+            "engine.py": "7299bbbcd0026350c46eadd5de185536156be58a979c43072f07c33bce6779d9",
+            "preprocess.py": "b07fdfdd59ecbda86e3ac57e69c4c0ea301c1c6f57a241d84319cdce67773292",
+            "model_registry.py": "d26b3a36ba14624d7d58e30682e213d0f78ecf5ac16c61a71dcf2a771295c21e",
+            "benchmark_ladder.py": "252f6650830c77099f0f392f5937b3ae448256a0e9a2920dae637145f1232b73",
+            "benchmark_cache.py": "32e27e08010b6448017b647c3d3b8adead391f73e3cab6b1c66324299482c76d",
+            "match_statistics.py": "0897695c26dc67a97161b51c8da834d811e208e650d79708a626979fa6e89bd5"
+          }
+        },
+        "opponent": {
+          "name": "Stockfish 19",
+          "author": "the Stockfish developers (see AUTHORS file)"
+        },
+        "cache": {
+          "loaded_from_disk": true,
+          "cache_key": "e24f0e7121cd60c595c1512a061846fb6296d53919b3a63cb8ce584f42611047",
+          "fit_or_load_and_save_seconds": 14.301478505134583,
+          "cache_bytes_on_disk": 1233455866,
+          "executor": "InferenceEngineExplicitKVCache",
+          "estimator_caches": 8,
+          "keep_cache_on_device": false,
+          "identity": {
+            "tabpfn": "9.0.0",
+            "torch": "2.6.0+cu124",
+            "numpy": "2.4.6",
+            "scikit-learn": "1.9.1",
+            "context_shape": [
+              10000,
+              787
+            ],
+            "dtype": "float32",
+            "X_sha256": "546826abf6b69bab869745b7437659e29dd556b0396147a66c3aa93e5b4eee86",
+            "y_sha256": "832895f7143380a8604981b8e84e21d256e964488c816d5a53dcce3f6e4cd6f9",
+            "model_registry_sha256": "d26b3a36ba14624d7d58e30682e213d0f78ecf5ac16c61a71dcf2a771295c21e"
+          },
+          "fit_calls": 1,
+          "predict_calls": 16264
+        },
+        "results": {
+          "games": 400,
+          "censored": 0,
+          "wins": 103,
+          "draws": 1,
+          "losses": 296,
+          "score": 0.25875,
+          "rating_games": 400,
+          "opening_pairs": 200,
+          "elo": 1303.7241065070646,
+          "elo_low": 1264.9462575929344,
+          "elo_high": 1340.8071152915809,
+          "interval_method": "95% opening-pair bootstrap, stratified by opponent Elo",
+          "bootstrap_samples": 2000,
+          "mean_move_seconds": 5.081048017845005,
+          "by_opponent": [
+            {
+              "anchor": 1320,
+              "games": 80,
+              "wins": 42,
+              "draws": 0,
+              "losses": 38,
+              "censored": 0
+            },
+            {
+              "anchor": 1400,
+              "games": 80,
+              "wins": 36,
+              "draws": 0,
+              "losses": 44,
+              "censored": 0
+            },
+            {
+              "anchor": 1500,
+              "games": 80,
+              "wins": 14,
+              "draws": 1,
+              "losses": 65,
+              "censored": 0
+            },
+            {
+              "anchor": 1600,
+              "games": 80,
+              "wins": 10,
+              "draws": 0,
+              "losses": 70,
+              "censored": 0
+            },
+            {
+              "anchor": 1800,
+              "games": 80,
+              "wins": 1,
+              "draws": 0,
+              "losses": 79,
+              "censored": 0
+            }
+          ]
+        },
+        "summary_source_sha256": "047dd6b61d620643b7677a1d5f0cecc837d26377ace8aebf365f32b18ab971ca"
+      },
+      "latency_pilot": {
+        "context": 10000,
+        "fit_seconds": 8.282323644991266,
+        "move_seconds": 36.64940013100568,
+        "move": "Nc3",
+        "peak_gpu_gb": 6.99974656
+      },
+      "cached_latency_pilot": {
+        "context": 10000,
+        "fit_seconds": 45.02150268800324,
+        "move_seconds": 4.940623820992187,
+        "move": "Nc3",
+        "peak_gpu_gb": 6.950882304
+      }
+    }
+  ]
+}
